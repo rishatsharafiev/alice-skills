@@ -92,3 +92,13 @@ rm stack from swarm
 ```
 docker stack rm olimpic-fitness-stack
 ```
+
+### Get ssl certs
+http://sslforfree.com
+
+### Configure nginx with ssl
+watch configs in nginx/ path
+
+### Configure dns
+watch dns.png 
+
