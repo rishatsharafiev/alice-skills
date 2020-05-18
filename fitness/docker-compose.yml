@@ -1,0 +1,33 @@
+version: "3.5"
+networks:
+  backend:
+    driver: overlay
+services:
+  app:
+    image: rishatsharafiev/alice-olimpic-fitness:${APP_TAG}
+    ports:
+      - "${APP_SERVER_PORT}:5000"
+    deploy:
+      replicas: ${APP_REPLICAS}
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 100M
+    networks:
+      - backend
+  portainer:
+    image: portainer/portainer:latest
+    ports:
+      - "${PORTAINER_PORT}:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA_PATH_HOST}:/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - backend
